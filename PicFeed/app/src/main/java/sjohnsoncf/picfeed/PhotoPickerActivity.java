@@ -51,7 +51,8 @@ public class PhotoPickerActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+
             mPostPicBtn.setVisibility(View.VISIBLE);
             mImgPreview.setVisibility(View.VISIBLE);
             previewImage(mCurrentImagePath);
@@ -59,14 +60,15 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
         } else if (requestCode == REQUEST_CHOOSE_IMAGE && resultCode == RESULT_OK){
 
-            getGalleryFile(data);
-            Log.d(TAG, "onActivityResult: DATA*** : " + data);
-            mPostPicBtn.setVisibility(View.VISIBLE);
-            mImgPreview.setVisibility(View.VISIBLE);
-            previewImage(mCurrentImagePath);
-
-
-// TODO:           previewImage(imgpath);
+            try {
+                Log.d(TAG, "onActivityResult: DATA*** : " + data);
+                mPostPicBtn.setVisibility(View.VISIBLE);
+                mImgPreview.setVisibility(View.VISIBLE);
+                getGalleryFile(data);
+//            previewImage(mCurrentImagePath);
+            } catch (FileNotFoundException e){
+                Log.d(TAG, "onActivityResult: error: " + e);
+            }
         }
     }
 
@@ -86,6 +88,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     private void choosePic(){
         try {
             File tempFile = getTempFile();
+
             Uri imgUri = FileProvider.getUriForFile(this, "sjohnsoncf.picfeed", tempFile);
 //android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI = location of external storage(where to pick from)?
             Intent choosePicIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -139,17 +142,18 @@ public class PhotoPickerActivity extends AppCompatActivity {
         return tempFile;
     }
 
-    private void getGalleryFile(Intent data){
+    private void getGalleryFile(Intent data) throws FileNotFoundException{
         //possible Inputs: galIntent data(uri), tempFilePath?
         //set String path from selected image uri?
 
 //        File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 //        File temp = File.createTempFile("temp",".jpg",dir);
 
-        Uri galImgUri = data.getData();
-        mCurrentImagePath = galImgUri.getPath();
-//        InputStream galleryFile = this.getContentResolver().openInputStream(data.getData());
-//        galleryFile.
+//        Uri galImgUri = data.getData();
+//        mCurrentImagePath = galImgUri.;
+        InputStream galleryFile = this.getContentResolver().openInputStream(data.getData());
+        Bitmap bitmap = BitmapFactory.decodeStream(galleryFile);
+        mImgPreview.setImageBitmap(bitmap);
 
 //        return temp;
     }
