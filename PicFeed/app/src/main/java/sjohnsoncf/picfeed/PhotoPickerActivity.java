@@ -1,5 +1,6 @@
 package sjohnsoncf.picfeed;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -102,6 +103,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     }
 
     private void attachClickListeners(){
+        final Context ctx = this;
         //take pic
             //start takePicIntent
         mTakePicBtn.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +129,11 @@ public class PhotoPickerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                //should add image to PhotoFeed ArrayList, but since feed populates from urls,
+                // we need to add images to firebase on post
                 galleryAddPic(mCurrentImagePath);
+                Intent gotoFeed = new Intent(ctx, PhotoFeedActivity.class);
+                startActivity(gotoFeed);
                 //eventually, send POST request to firebase,
                 // goto picFeed or reset photoPicker
             }
@@ -158,7 +164,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
 //        return temp;
     }
 
-    //is this needed?
+    
     private void previewImage(String path){
         //build bmp?
         Bitmap imgPreview = BitmapFactory.decodeFile(path);
