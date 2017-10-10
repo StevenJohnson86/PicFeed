@@ -8,11 +8,11 @@ import java.util.ArrayList;
  * Created by steven on 10/7/17.
  */
 
-public abstract class PicListViewAdapter extends BaseAdapter {
-    private ArrayList<String> mPhotoUrlList;
+public abstract class PicListViewAdapter<T> extends BaseAdapter {
+    private ArrayList<T> mPhotoUrlList;
 
-    public PicListViewAdapter(ArrayList<String> urls){
-        this.mPhotoUrlList = urls;
+    public PicListViewAdapter(ArrayList<T> objects){
+        this.mPhotoUrlList = objects;
     }
     @Override
     public int getCount() {

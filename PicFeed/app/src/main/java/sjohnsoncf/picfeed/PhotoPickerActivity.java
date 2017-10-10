@@ -132,8 +132,12 @@ public class PhotoPickerActivity extends AppCompatActivity {
                 //should add image to PhotoFeed ArrayList, but since feed populates from urls,
                 // we need to add images to firebase on post
                 galleryAddPic(mCurrentImagePath);
-                Intent gotoFeed = new Intent(ctx, PhotoFeedActivity.class);
-                startActivity(gotoFeed);
+                Intent prepPost = new Intent(ctx, PreparePostActivity.class);
+//                prepPost.putExtra??
+
+//                Intent gotoFeed = new Intent(ctx, PhotoFeedActivity.class);
+//                startActivity(gotoFeed);
+
                 //eventually, send POST request to firebase,
 
                 // goto picFeed or reset photoPicker

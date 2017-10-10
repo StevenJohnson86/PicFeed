@@ -36,7 +36,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PhotoFeedActivity"></activity>
+        <activity android:name=".PhotoFeedActivity" />
+        <activity android:name=".PreparePostActivity"></activity>
     </application>
 
 </manifest>

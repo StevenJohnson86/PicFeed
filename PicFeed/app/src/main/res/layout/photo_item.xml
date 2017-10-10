@@ -10,4 +10,9 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+    <EditText
+        android:id="@+id/photo_item_caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
