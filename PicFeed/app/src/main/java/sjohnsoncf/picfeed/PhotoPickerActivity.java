@@ -135,15 +135,16 @@ public class PhotoPickerActivity extends AppCompatActivity {
                 Intent gotoFeed = new Intent(ctx, PhotoFeedActivity.class);
                 startActivity(gotoFeed);
                 //eventually, send POST request to firebase,
+
                 // goto picFeed or reset photoPicker
             }
         });
     }
 
     private File getTempFile() throws IOException {
-//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmm").format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmm").format(new Date());
         File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File tempFile = File.createTempFile("JPEG_temp_img", ".jpg", dir);
+        File tempFile = File.createTempFile(timeStamp + "_JPEG", ".jpg", dir);
         mCurrentImagePath = tempFile.getAbsolutePath();
         return tempFile;
     }
@@ -164,9 +165,9 @@ public class PhotoPickerActivity extends AppCompatActivity {
 //        return temp;
     }
 
-    
+
     private void previewImage(String path){
-        //build bmp?
+
         Bitmap imgPreview = BitmapFactory.decodeFile(path);
         mImgPreview.setImageBitmap(imgPreview);
 
